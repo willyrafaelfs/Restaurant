@@ -1,10 +1,9 @@
+'use server';
+
 import { collection, query, where, getDocs, orderBy, Timestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { auth } from '@/lib/firebase';
 import DashboardClient from './dashboard-client';
 import type { Reservation } from '@/lib/types';
-import { getMenuRecommendations } from '@/ai/flows/getMenuRecommendations';
-import AiRecommendations from '@/components/dashboard/ai-recommendations';
 
 async function getReservations(userId: string): Promise<Reservation[]> {
   const reservationsCol = collection(db, 'reservations');
