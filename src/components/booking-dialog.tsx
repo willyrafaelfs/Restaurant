@@ -13,7 +13,7 @@ import { BookingForm } from './booking-form';
 import type { Reservation } from '@/lib/types';
 import { useAuth } from '@/hooks/use-auth';
 import { Button } from './ui/button';
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithRedirect } from 'firebase/auth';
 import { auth, googleProvider } from '@/lib/firebase';
 
 interface BookingDialogProps {
@@ -32,7 +32,7 @@ export function BookingDialog({ children, reservation, open: controlledOpen, onO
   
   const handleSignIn = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      await signInWithRedirect(auth, googleProvider);
     } catch (error) {
       console.error('Error signing in with Google', error);
     }
