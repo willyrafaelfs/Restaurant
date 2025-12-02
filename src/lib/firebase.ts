@@ -3,12 +3,13 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  apiKey: "AIzaSyDm3byMJKkQMovkiPuVCW4Kjl70sSzgYp0",
+  authDomain: "restaurant-c1649.firebaseapp.com",
+  projectId: "restaurant-c1649",
+  storageBucket: "restaurant-c1649.firebasestorage.app",
+  messagingSenderId: "13416372222",
+  appId: "1:13416372222:web:698d2c9b553b4257e112af",
+  measurementId: "G-PR57727HD8"
 };
 
 // Initialize Firebase
