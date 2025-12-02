@@ -1,3 +1,7 @@
 {
-  "placeholderImages": []
+  "hero": {
+    "src": "https://picsum.photos/seed/hero-image/1920/1080",
+    "alt": "Elegant restaurant interior",
+    "hint": "restaurant interior"
+  }
 }
