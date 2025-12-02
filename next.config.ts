@@ -1,15 +1,14 @@
-import type {NextConfig} from 'next';
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // 1. WAJIB: Agar menghasilkan folder "out" berisi HTML statis untuk Netlify
   output: 'export',
-  /* config options here */
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+
+  // 2. WAJIB: Matikan optimasi gambar server karena kita pakai Static Export
   images: {
+    unoptimized: true, // <--- Baris ini solusinya!
+    
+    // Pola remote yang kamu miliki sebelumnya tetap kita simpan
     remotePatterns: [
       {
         protocol: 'https',
@@ -30,6 +29,14 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+  },
+
+  // Pengaturan TypeScript dan ESLint kamu
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 
