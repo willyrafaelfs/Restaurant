@@ -90,7 +90,7 @@ export async function deleteReservation(id: string) {
 
 export async function getReservations(userId: string): Promise<Reservation[]> {
   const reservationsCol = collection(db, 'reservations');
-  const q = query(reservationsCol, where('userId', '==', userId), orderBy('date', 'desc'));
+  const q = query(reservationsCol, where('userId', '==', userId));
   const querySnapshot = await getDocs(q);
   const reservations = querySnapshot.docs.map(doc => {
     const data = doc.data();
@@ -100,5 +100,9 @@ export async function getReservations(userId: string): Promise<Reservation[]> {
       date: (data.date as Timestamp).toDate(),
     } as Reservation;
   });
+  
+  // Sort reservations by date in descending order
+  reservations.sort((a, b) => (b.date as Date).getTime() - (a.date as Date).getTime());
+
   return reservations;
 }
