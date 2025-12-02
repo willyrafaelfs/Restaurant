@@ -45,4 +45,4 @@ if (typeof window !== 'undefined' && firebaseConfig.apiKey) {
 }
 
 // Export dengan casting 'any' agar TypeScript tidak protes saat build
-export { app, auth, db, googleProvider } as any;
+export { app, auth, db, googleProvider };
