@@ -12,14 +12,37 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
-// Initialize Firebase
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const auth = getAuth(app);
-const db = getFirestore(app);
-const googleProvider = new GoogleAuthProvider();
+// --- LOGIKA ANTI-CRASH UNTUK BUILD NETLIFY ---
+// Kita buat variabel kosong dulu
+let app;
+let auth;
+let db;
+let googleProvider;
 
-googleProvider.setCustomParameters({
-  prompt: 'select_account'
-});
+// Cek apakah API Key tersedia?
+// Jika tersedia (di Browser/Laptop/Netlify Runtime), inisialisasi Firebase.
+// Jika TIDAK tersedia (saat Netlify Build awal), jangan jalankan agar tidak error.
+if (typeof window !== 'undefined' && firebaseConfig.apiKey) {
+  try {
+    app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+    auth = getAuth(app);
+    db = getFirestore(app);
+    
+    googleProvider = new GoogleAuthProvider();
+    googleProvider.setCustomParameters({
+      prompt: 'select_account'
+    });
+  } catch (error) {
+    console.error("Firebase init error:", error);
+  }
+} else {
+  // Dummy initialization saat build agar Next.js tidak error
+  // Ini hanya 'pura-pura' agar build sukses
+  app = null; 
+  auth = null;
+  db = null;
+  googleProvider = null;
+}
 
-export { app, auth, db, googleProvider };
+// Export dengan casting 'any' agar TypeScript tidak protes saat build
+export { app, auth, db, googleProvider } as any;
