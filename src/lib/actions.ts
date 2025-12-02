@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { db } from './firebase';
-import { collection, addDoc, doc, updateDoc, deleteDoc, Timestamp } from 'firebase/firestore';
+import { collection, addDoc, doc, updateDoc, deleteDoc, Timestamp, query, where, getDocs, orderBy } from 'firebase/firestore';
 import type { Reservation, ReservationFormData } from './types';
 import { z } from 'zod';
 
@@ -86,4 +86,19 @@ export async function deleteReservation(id: string) {
   } catch (error) {
     return { message: 'Database Error: Failed to Cancel Reservation.' };
   }
+}
+
+export async function getReservations(userId: string): Promise<Reservation[]> {
+  const reservationsCol = collection(db, 'reservations');
+  const q = query(reservationsCol, where('userId', '==', userId), orderBy('date', 'desc'));
+  const querySnapshot = await getDocs(q);
+  const reservations = querySnapshot.docs.map(doc => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      ...data,
+      date: (data.date as Timestamp).toDate(),
+    } as Reservation;
+  });
+  return reservations;
 }

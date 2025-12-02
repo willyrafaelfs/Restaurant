@@ -1,24 +1,7 @@
 'use server';
 
-import { collection, query, where, getDocs, orderBy, Timestamp } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
 import DashboardClient from './dashboard-client';
-import type { Reservation } from '@/lib/types';
-
-async function getReservations(userId: string): Promise<Reservation[]> {
-  const reservationsCol = collection(db, 'reservations');
-  const q = query(reservationsCol, where('userId', '==', userId), orderBy('date', 'desc'));
-  const querySnapshot = await getDocs(q);
-  const reservations = querySnapshot.docs.map(doc => {
-    const data = doc.data();
-    return {
-      id: doc.id,
-      ...data,
-      date: (data.date as Timestamp).toDate(),
-    } as Reservation;
-  });
-  return reservations;
-}
+import { getReservations } from '@/lib/actions';
 
 export default async function DashboardPage() {
   // In a real app, you'd get the user from server-side auth.
