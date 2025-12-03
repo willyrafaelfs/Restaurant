@@ -4,31 +4,4 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-```
-
-**Penjelasan:**
-* `publish = ".netlify/output/public"`: Ini adalah folder rahasia yang dipakai Netlify saat menjalankan Next.js dalam mode Server (SSR). Ini sesuai dengan **Option A** yang disarankan di log error kamu.
-
-### 2. Push ke GitHub
-Simpan file tersebut, lalu kirim ke GitHub agar Netlify membacanya.
-
-Buka terminal VS Code:
-```bash
-git add .
-git commit -m "Add netlify.toml config"
-git push
-```
-
-### 3. Cek Netlify (Otomatis Deploy)
-Netlify akan mendeteksi file `netlify.toml` ini dan otomatis memperbaiki pengaturan "Publish directory"-nya.
-
-1.  Buka Dashboard Netlify.
-2.  Tunggu proses **Building** berjalan.
-3.  Seharusnya error `publish directory is the same as the site base directory` akan hilang dan website kamu akan sukses ter-publish (Hijau).
-
-**Catatan Penting:**
-Pastikan di file `package.json` kamu bagian scripts **TETAP** seperti ini (jangan ada `next export`):
-```json
-"scripts": {
-  "build": "next build"
-}
+  
