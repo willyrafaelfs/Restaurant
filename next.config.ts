@@ -1,9 +1,6 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // 1. WAJIB: Agar menghasilkan folder "out" berisi HTML statis untuk Netlify
-  output: 'export',
-
   // 2. WAJIB: Matikan optimasi gambar server karena kita pakai Static Export
   images: {
     unoptimized: true, // <--- Baris ini solusinya!
